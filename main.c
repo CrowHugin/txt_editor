@@ -3,15 +3,40 @@
 #define max_lines 5
 
 
-char *buffer[max_lines] = {
-    "Bienvenue dans l'interface ncurses.",
-    "Ici, le deplacement est fluide.",
-    "Utilise h, j, k, l ou les fleches.",
-    "Appuie sur 'q' pour quitter.",
-    "Fin du buffer."
-};
+void load_file(char** buffer, char* path){
+  FILE* f=fopen(path,"r");
+  if (f==NULL)
+  {
+    for (int i = 0; i < max_lines; i++) {
+      buffer[i] = strdup(""); 
+    }
+    return;
+  }
 
-int main(void){
+  char line_content[1024];
+  int i=0;
+
+  while(fgets(line_content, sizeof(line_content), f) && i < max_lines){
+    line_content[strcspn(line_content,"\n")]=0;
+    buffer[i]=strdup(line_content);
+    i++;
+  }
+
+  while(i<max_lines){
+    buffer[i]=strdup("");
+    i++;
+  }
+  fclose(f);
+
+}
+
+
+int main(int argc, char** argv){
+  char* buffer[max_lines]={0};
+  char* file = argv[1];
+
+  load_file(buffer,argv[1]);
+
   initscr();
   cbreak();
   noecho();
@@ -19,6 +44,7 @@ int main(void){
 
   int line=0,col=0,ch,i;
   char* mode="normal";
+
 
   while(1){
     erase();
