@@ -58,61 +58,70 @@ int main(int argc, char** argv){
 
 
     ch = getch();
+    
+    if (strcmp(mode,"normal")==0){
+      if (ch == 'q'){
+        break;
+      }
 
-    if (ch == 'q'){
-      break;
+      switch (ch){
+        case 'k':
+          if (line>0){
+            line --;
+          }
+          if (col>(int)strlen(buffer[line])-1){ //if current colon < lenght of the line 
+            col=(int)strlen(buffer[line])-1; //set current colon to the lenghtof the line
+            //used -1 to avoid the \0
+          }
+          break;
+
+        case 'j':
+          if (line<max_lines-1){
+            if (strlen(buffer[line+1])>0){ // or strcmp(buffer[line+1]!=0
+              line ++;
+            }
+          }
+          if (col>(int)strlen(buffer[line])-1){ //if current colon < lenght of the line 
+            col=(int)strlen(buffer[line])-1; //set current colon to the lenghtof the line
+          //used -1 to avoid the \0
+          }
+          break;
+
+        case 'l':
+          if (col<(int)strlen(buffer[line])-1){ // or if (strcmp(&buffer[line][col+1],"\0")!=0){
+            col ++;
+          }
+          break;
+
+        case 'h':
+          if (col>0){
+            col--;
+          }
+          break;
+      
+        case 'i':
+          mode = "insert";
+          if(strcmp(mode, "insert")==0){
+            mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
+          }
+          break;
+      }
     }
 
-    switch (ch){
-      case 'k':
-        if (line>0){
-          line --;
-        }
-        if (col>(int)strlen(buffer[line])-1){ //if current colon < lenght of the line 
-          col=(int)strlen(buffer[line])-1; //set current colon to the lenghtof the line
-          //used -1 to avoid the \0
-        }
+    if (strcmp(mode,"insert")==0){
+      if (ch == 'q'){
         break;
+      }
 
-      case 'j':
-        if (line<max_lines-1){
-          if (strlen(buffer[line+1])>0){ // or strcmp(buffer[line+1]!=0
-            line ++;
+      switch (ch){
+
+        case 27: //touche esc
+          mode = "normal";
+          if(strcmp(mode, "normal")==0){
+            mvprintw(max_lines + 1, 0, "Passage en mode NORMAL");
           }
-        }
-        if (col>(int)strlen(buffer[line])-1){ //if current colon < lenght of the line 
-          col=(int)strlen(buffer[line])-1; //set current colon to the lenghtof the line
-        //used -1 to avoid the \0
-        }
-        break;
-
-      case 'l':
-        if (col<(int)strlen(buffer[line])-1){ // or if (strcmp(&buffer[line][col+1],"\0")!=0){
-          col ++;
-        }
-        break;
-
-      case 'h':
-        if (col>0){
-          col--;
-        }
-        break;
-      
-      case 'n':
-        if (strcmp(mode, "normal")==0){ //if already on normal mode
-          //printf("normal mode");
-          mvprintw(max_lines + 1, 0, "Passage en mode NORMAL");
-        }
-        break;
-      
-      case 'i':
-        if(strcmp(mode, "insert")==0){
-          //printf("Insert mode");
-          mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
-        }
-        break;
-
-
+          break;
+      }
     }
   }
   endwin();
