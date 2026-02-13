@@ -105,16 +105,18 @@ int main(int argc, char** argv){
             mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
           }
           break;
+
+        case 'v':
+          mode = "visual";
+          if(strcmp(mode,"visual")==0){
+            mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
+          }
+
       }
     }
 
     if (strcmp(mode,"insert")==0){
-      if (ch == 'q'){
-        break;
-      }
-
       switch (ch){
-
         case 27: //touche esc
           mode = "normal";
           if(strcmp(mode, "normal")==0){
@@ -123,7 +125,17 @@ int main(int argc, char** argv){
           break;
       }
     }
-  }
+    if (strcmp(mode,"visual")==0){
+      switch (ch){
+        case 27: //touche esc
+          mode = "normal";
+          if(strcmp(mode, "normal")==0){
+            mvprintw(max_lines + 1, 0, "Passage en mode NORMAL");
+          }
+          break;
+        }
+      }
+    }
   endwin();
   return 0;
 }
