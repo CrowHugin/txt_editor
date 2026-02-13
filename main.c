@@ -53,6 +53,7 @@ int main(int argc, char** argv){
     {
       mvprintw(i,0,"%s",buffer[i]);
     }
+    mvprintw(LINES - 1, 0, " MODE: %-10s | Ligne: %d, Col: %d ", mode, line, col);
     move(line, col);
     refresh();
 
@@ -101,16 +102,11 @@ int main(int argc, char** argv){
       
         case 'i':
           mode = "insert";
-          if(strcmp(mode, "insert")==0){
-            mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
-          }
           break;
 
         case 'v':
           mode = "visual";
-          if(strcmp(mode,"visual")==0){
-            mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
-          }
+          break;
 
       }
     }
@@ -119,9 +115,6 @@ int main(int argc, char** argv){
       switch (ch){
         case 27: //touche esc
           mode = "normal";
-          if(strcmp(mode, "normal")==0){
-            mvprintw(max_lines + 1, 0, "Passage en mode NORMAL");
-          }
           break;
       }
     }
@@ -129,9 +122,6 @@ int main(int argc, char** argv){
       switch (ch){
         case 27: //touche esc
           mode = "normal";
-          if(strcmp(mode, "normal")==0){
-            mvprintw(max_lines + 1, 0, "Passage en mode NORMAL");
-          }
           break;
         }
       }
