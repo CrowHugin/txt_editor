@@ -27,6 +27,10 @@ void load_file(char** buffer, char* path){
     i++;
   }
   fclose(f);
+}
+
+void save_file(char** buffer, char* path){
+
 
 }
 
@@ -110,6 +114,9 @@ int main(int argc, char** argv){
         }
         break;
 
+      case 'w':
+        save_file(buffer,argv[1]);
+        break;
 
     }
   }
