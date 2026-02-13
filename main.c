@@ -66,6 +66,8 @@ int main(int argc, char** argv){
       }
 
       switch (ch){
+
+        //movements
         case 'k':
           if (line>0){
             line --;
@@ -100,6 +102,7 @@ int main(int argc, char** argv){
           }
           break;
       
+        //mode switch
         case 'i':
           mode = "insert";
           break;
@@ -113,14 +116,16 @@ int main(int argc, char** argv){
 
     if (strcmp(mode,"insert")==0){
       switch (ch){
-        case 27: //touche esc
+        //mode switch
+        case 27: //Esc key
           mode = "normal";
           break;
       }
     }
     if (strcmp(mode,"visual")==0){
       switch (ch){
-        case 27: //touche esc
+        //mode switch
+        case 27: //Esc key
           mode = "normal";
           break;
         }
