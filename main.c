@@ -37,6 +37,7 @@ int main(int argc, char** argv){
 
   load_file(buffer,argv[1]);
 
+
   initscr();
   cbreak();
   noecho();
@@ -67,16 +68,26 @@ int main(int argc, char** argv){
         if (line>0){
           line --;
         }
+        if (col>(int)strlen(buffer[line])-1){ //if current colon < lenght of the line 
+          col=(int)strlen(buffer[line])-1; //set current colon to the lenghtof the line
+          //used -1 to avoid the \0
+        }
         break;
 
       case 'j':
         if (line<max_lines-1){
-          line ++;
+          if (strlen(buffer[line+1])>0){ // or strcmp(buffer[line+1]!=0
+            line ++;
+          }
+        }
+        if (col>(int)strlen(buffer[line])-1){ //if current colon < lenght of the line 
+          col=(int)strlen(buffer[line])-1; //set current colon to the lenghtof the line
+        //used -1 to avoid the \0
         }
         break;
 
       case 'l':
-        if (col<(int)strlen(buffer[line])){
+        if (col<(int)strlen(buffer[line])-1){ // or if (strcmp(&buffer[line][col+1],"\0")!=0){
           col ++;
         }
         break;
