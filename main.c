@@ -100,13 +100,15 @@ int main(int argc, char** argv){
       
       case 'n':
         if (strcmp(mode, "normal")==0){ //if already on normal mode
-          printf("normal mode");
+          //printf("normal mode");
+          mvprintw(max_lines + 1, 0, "Passage en mode NORMAL");
         }
         break;
       
       case 'i':
         if(strcmp(mode, "insert")==0){
-          printf("Insert mode");
+          //printf("Insert mode");
+          mvprintw(max_lines + 1, 0, "Passage en mode INSERT");
         }
         break;
 
